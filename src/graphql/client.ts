@@ -1,18 +1,21 @@
 import { GraphQLClient } from "graphql-request";
-import { QueryClient } from "react-query";
+// import { QueryClient } from "react-query";
+// import { getSdk } from "../__generated__/resolvers-types";
 
 if (!process.env.GRAPHQL_SERVER) {
     throw new Error("Cannot find server url")
 }
 
-const gqlClient = new GraphQLClient(process.env.GRAPHQL_SERVER)
+export const graphqlClient = new GraphQLClient(process.env.GRAPHQL_SERVER)
 
-export const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: false,
-        }
-    }
-})
+// export const {} = getSdk(gqlClient)
+
+// export const queryClient = new QueryClient({
+//     defaultOptions: {
+//         queries: {
+//             refetchOnMount: false,
+//             refetchOnWindowFocus: false,
+//             refetchOnReconnect: false,
+//         }
+//     }
+// })

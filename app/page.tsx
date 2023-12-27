@@ -1,8 +1,56 @@
+import { Query, QueryDogArgs } from '@/src/__generated__/resolvers-types'
+import { graphqlClient } from '@/src/graphql/client'
+import { gql } from 'graphql-request'
 import Image from 'next/image'
 
-export default function Home() {
+const getDogsDocument = gql`
+  query Dogs {
+    dogs {
+      name
+      image
+      owner {
+        id
+        name
+      }
+      type
+      updatedAt
+      createdAt
+      description
+    }
+  }
+`
+
+const getDogDocument = gql`
+  query Dog($name: String!) {
+  dog(name: $name) {
+    createdAt
+    description
+    image
+    name
+    owner {
+      id
+      name
+    }
+    type
+    updatedAt
+  }
+}
+`
+
+export default async function Home() {
+  let dogsValue: undefined | Pick<Query, "dogs">
+  let dogValue: undefined | Pick<Query, "dog">
+  try {
+    dogsValue = await graphqlClient.request<Pick<Query, "dogs">>(getDogsDocument)
+    dogValue = await graphqlClient.request<Pick<Query, "dog">, QueryDogArgs>(getDogDocument, {name: "banana"})
+  } catch (e) {
+    return <div>{JSON.stringify(e)}</div>
+  }
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div>{JSON.stringify(dogsValue, null, 2)}</div>
+      <div>{JSON.stringify(dogValue, null, 2)}</div>
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
