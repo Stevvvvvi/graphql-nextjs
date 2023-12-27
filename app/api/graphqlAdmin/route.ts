@@ -1,17 +1,29 @@
 import "reflect-metadata";
+import { resolvers, OwnerCrudResolver } from "@generated/type-graphql";
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextRequest } from "next/server";
 import { buildSchema } from "type-graphql";
-import { DogsResolver, DogTypeResolver } from "@/src/graphql/resolvers/DogsResolver";
 import prisma from '@/prisma/db';
 import Context from "@/src/graphql/context";
 
 
 const schema = await buildSchema({
-    resolvers: [DogsResolver, DogTypeResolver],
+    resolvers,
     emitSchemaFile: true,
 })
+
+// const resolvers = {
+//     Query: {
+//       hello: () => 'world',
+//     },
+//   };
+
+// const typeDefs = `#graphql
+//   type Query {
+//     hello: String
+//   }
+// `;
 
 const server = new ApolloServer<Context>({
     schema,

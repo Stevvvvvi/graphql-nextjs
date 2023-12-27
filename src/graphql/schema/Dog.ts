@@ -1,24 +1,28 @@
 import { Field, ID, ObjectType } from "type-graphql";
+import { Owner } from "./Owner";
 
-@ObjectType({ description: "The Dog Model" })
+@ObjectType()
 export class Dog {
     @Field(type => ID)
     name!: string;
 
-    @Field({nullable: true})
-    image?: string | null
+    @Field(type => String, {nullable: true})
+    image?: string | null;
 
-    @Field()
+    @Field(type => Date)
     createdAt: Date | undefined
 
-    @Field()
+    @Field(type => Date)
     updatedAt: Date | undefined
 
-    @Field()
-    description: string | undefined
+    @Field(type => String)
+    description: string = ""
 
-    @Field()
-    type: string | undefined
+    @Field(type => String)
+    type: string = ""
+
+    @Field(type => [Owner])
+    owner: Owner[] = [];
 
 
 }

@@ -1,11 +1,11 @@
 import { Field, ID, ObjectType } from "type-graphql";
 
-@ObjectType({ description: "The Dog Model" })
-export class Dog {
+@ObjectType({ description: "The Owner of Dogs" })
+export class Owner {
     @Field(type => ID)
     id!: string;
 
-    @Field()
-    name: String | undefined
+    @Field(type => String)
+    name: string | undefined
 
 }
