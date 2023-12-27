@@ -1,9 +1,10 @@
 import "reflect-metadata";
+import { resolvers } from "@generated/type-graphql";
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextRequest } from "next/server";
 import { buildSchema } from "type-graphql";
-import { DogsResolver } from "@/graphql/DogsResolver";
+import { DogsResolver } from "@/src/graphql/resolvers/DogsResolver";
 
 
 const schema = await buildSchema({

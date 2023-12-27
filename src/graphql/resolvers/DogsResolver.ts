@@ -1,10 +1,11 @@
 import { Query, Resolver } from "type-graphql";
-import { Dog } from "@/graphql/Dog";
+import { Dog } from "@/src/graphql/schema/Dog";
 
 @Resolver(Dog)
 export class DogsResolver {
-    @Query(() => [Dog])
+    @Query(returns => [Dog])
     dogs(): Dog[] {
+        
         return [
             {name: "Bo"},
             {name: "sfsdf"}
