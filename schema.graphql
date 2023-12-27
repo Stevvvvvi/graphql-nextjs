@@ -25,5 +25,6 @@ type Owner {
 }
 
 type Query {
+  dog(name: String!): Dog!
   dogs: [Dog!]!
 }
